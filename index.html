@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeu de Yams Complet</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <div class="top-actions">
+            <button id="btn-config" onclick="basculerAffichageConfig()">🔧 Configurer la partie</button>
+            <button onclick="ouvrirAide()">💡 Règles du Quota 45</button>
+        </div>
+
+        <div id="customization-panel" class="customization-container" style="display: none;">
+            <div class="config-split-container">
+                <div id="config-colonnes-panel" class="config-grid-section">
+                    </div>
+                <div id="config-lignes-panel" class="config-grid-section">
+                    </div>
+            </div>
+
+            <div class="config-rules-section">
+                <h3>Formules & Scores des Figures :</h3>
+                <div class="rules-grid">
+                    <div class="rule-group">
+                        <label><strong>Brelan :</strong></label>
+                        <select id="rule-brelan-type" onchange="configRegles.brelanType = this.value">
+                            <option value="somme_des" selected>Somme de tous les dés</option>
+                            <option value="somme_3">Somme des 3 dés identiques</option>
+                            <option value="fixe">Valeur fixe</option>
+                        </select>
+                        <input type="number" id="rule-brelan-fixe" value="20" style="width: 50px;" onchange="configRegles.brelanFixe = parseInt(this.value) || 20">
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Carré :</strong></label>
+                        <select id="rule-carre-type" onchange="configRegles.carreType = this.value">
+                            <option value="somme_des" selected>Somme de tous les dés</option>
+                            <option value="somme_4">Somme des 4 dés identiques</option>
+                            <option value="fixe">Valeur fixe</option>
+                        </select>
+                        <input type="number" id="rule-carre-fixe" value="40" style="width: 50px;" onchange="configRegles.carreFixe = parseInt(this.value) || 40">
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Full :</strong></label>
+                        <input type="number" value="30" style="width: 50px;" onchange="configRegles.fullValeur = parseInt(this.value) || 30"> points
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Petite Suite :</strong></label>
+                        <input type="number" value="30" style="width: 50px;" onchange="configRegles.petiteSuiteValeur = parseInt(this.value) || 30"> points
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Grande Suite :</strong></label>
+                        <input type="number" value="40" style="width: 50px;" onchange="configRegles.grandeSuiteValeur = parseInt(this.value) || 40"> points
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Suite Cassée (ex: 1-2-4-5) :</strong></label>
+                        <input type="number" value="20" style="width: 50px;" onchange="configRegles.suiteCasseeValeur = parseInt(this.value) || 20"> points
+                    </div>
+
+                    <div class="rule-group">
+                        <label><strong>Yams :</strong></label>
+                        <input type="number" value="50" style="width: 50px;" onchange="configRegles.yamsValeur = parseInt(this.value) || 50"> points
+                    </div>
+
+                    <div class="rule-group checkbox-group">
+                        <label>
+                            <input type="checkbox" checked onchange="configRegles.doubleYamsBonus = this.checked">
+                            <strong>Bonus 2ème Yams (+100 pts)</strong>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <p class="instruction-text">💡 Personnalisez votre grille ! Décochez les colonnes ou figures que vous ne voulez pas jouer, glissez (☰) pour réordonner et ajustez vos règles de score avant de lancer la partie.</p>
+        </div>
+
+        <div class="play-zone">
+            <div class="dice-container">
+                <div id="de1" class="de" onclick="basculerBloquerDe(0)" data-valeur="1"></div>
+                <div id="de2" class="de" onclick="basculerBloquerDe(1)" data-valeur="1"></div>
+                <div id="de3" class="de" onclick="basculerBloquerDe(2)" data-valeur="1"></div>
+                <div id="de4" class="de" onclick="basculerBloquerDe(3)" data-valeur="1"></div>
+                <div id="de5" class="de" onclick="basculerBloquerDe(4)" data-valeur="1"></div>
+            </div>
+            
+            <div class="control-panel">
+                <span id="info-lancer">Lancers : 0</span>
+                <button id="btn-lancer" onclick="lancerLesDes()">🎲 Lancer les dés</button>
+                <button id="btn-nouvelle-partie" onclick="initialiserNouvellePartie()">🔄 Nouvelle Partie</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table id="grille-scores">
+                </table>
+        </div>
+    </div>
+
+    <script src="yams.js"></script>
+</body>
+</html>
