@@ -1,0 +1,357 @@
+/* ==========================================
+   DESIGN GLOBAL & CONTENEUR
+   ========================================== */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0f172a;
+    color: #334155;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.game-container {
+    background-color: #ffffff;
+    max-width: 950px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+}
+
+/* ==========================================
+   PANNEAU DE CONFIGURATION & BOUTONS
+   ========================================== */
+.top-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 15px;
+}
+
+button {
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.95em;
+    font-weight: 600;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+button:disabled {
+    background-color: #cbd5e1;
+    cursor: not-allowed;
+}
+
+#btn-config.active {
+    background-color: #dc2626; /* Rouge quand le panneau est ouvert */
+}
+#btn-config.active:hover {
+    background-color: #b91c1c;
+}
+
+.customization-container {
+    background-color: #f8fafc;
+    border: 2px dashed #cbd5e1;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+}
+
+/* Grille scindée en deux pour colonnes et lignes */
+.config-split-container {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 20px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 15px;
+}
+
+.config-grid-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: flex-start;
+}
+
+.config-grid-section h3 {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1em;
+    color: #1e293b;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+}
+
+/* Boîtes d'options individuelles */
+.config-item {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border: 1px solid #cbd5e1;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: grab;
+    user-select: none;
+    font-size: 0.85em;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: background-color 0.2s;
+}
+
+.config-item:active {
+    cursor: grabbing;
+    background-color: #f1f5f9;
+}
+
+/* Configuration statique pour les lignes */
+.config-item.no-drag {
+    cursor: default;
+    background-color: #f8fafc;
+}
+
+.handle {
+    margin-right: 8px;
+    color: #94a3b8;
+    font-weight: bold;
+}
+
+.config-item label {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.instruction-text {
+    font-size: 0.85em;
+    color: #64748b;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+/* ==========================================
+   ZONE DE JEU : DÉS & CONTRÔLES
+   ========================================== */
+.play-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f1f5f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+.dice-container {
+    display: flex;
+    gap: 15px;
+}
+
+.de {
+    width: 54px;
+    height: 54px;
+    background-color: #ffffff;
+    border: 3px solid #64748b;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.8em;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: all 0.15s ease;
+}
+
+.de:hover {
+    transform: scale(1.05);
+    border-color: #3b82f6;
+}
+
+.de.bloque {
+    background-color: #ef4444;
+    color: white;
+    border-color: #b91c1c;
+}
+
+/* Animations de secousse pendant le lancer */
+.anime-a { transform: rotate(-8deg) translateY(-4px); }
+.anime-b { transform: rotate(8deg) translateY(4px); }
+
+.control-panel {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    justify-content: center;
+}
+
+#info-lancer {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #1e293b;
+    min-width: 110px;
+}
+
+#btn-lancer {
+    background-color: #10b981;
+    font-size: 1.1em;
+    padding: 12px 24px;
+}
+#btn-lancer:hover { background-color: #059669; }
+
+#btn-nouvelle-partie {
+    background-color: #64748b;
+}
+#btn-nouvelle-partie:hover { background-color: #475569; }
+
+/* ==========================================
+   CARNET DE SCORES (GRILLE ULTRA-COMPACTE)
+   ========================================== */
+.table-container {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    font-size: 0.9em;
+}
+
+/* Colonne de gauche (Intitulés des figures) */
+td:first-child {
+    text-align: left;
+    font-weight: bold;
+    background-color: #f8fafc;
+    padding-left: 12px;
+    min-width: 150px;
+    color: #1e293b;
+}
+
+/* Largeurs compactes pour les colonnes de scores */
+th {
+    background-color: #0f172a;
+    color: #ffffff;
+    font-size: 1.05em;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px 2px;
+    min-width: 44px;
+    max-width: 52px;
+    border: 1px solid #334155;
+}
+
+td {
+    padding: 7px 2px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    min-width: 44px;
+    max-width: 52px;
+    font-weight: 600;
+}
+
+/* Case cliquable et libre */
+td.case-libre {
+    background-color: #ffffff;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+td.case-libre:hover {
+    background-color: #dcfce7 !important; /* Flash vert clair au survol */
+    color: #15803d !important;
+}
+
+/* Case verrouillée par la contrainte de progression ou de tour (Sèche, Montante, Descendante) */
+td.case-verrouillee {
+    background-color: #e2e8f0 !important; /* Gris de sécurité bloqué */
+    color: #94a3b8 !important;
+    cursor: not-allowed !important;
+}
+
+td.case-verrouillee:hover {
+    background-color: #e2e8f0 !important; /* Pas d'effet vert au survol */
+}
+
+/* Styles pour les lignes de totaux et bonus automatiques */
+tr:nth-child(1),  /* Total Jeton */
+tr:nth-child(8),  /* Bonus */
+tr:nth-child(18), /* Total Cases */
+tr:nth-child(19), /* Total Bonus */
+tr:nth-child(20), /* Total Gérable */
+tr:nth-child(21), /* Total Joker */
+tr:nth-child(22)  /* TOTAL FINAL */ {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+tr:last-child {
+    background-color: #e2e8f0;
+    font-size: 1em;
+    border-top: 2px solid #0f172a;
+}
+
+/* Style et animation du Pari en cours (Contrats) */
+td.case-pari {
+    background-color: #fef08a !important; /* Jaune vif */
+    color: #854d0e !important;
+    font-weight: bold;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* Panneau de configuration des règles */
+.config-rules-section {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.rules-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+}
+
+.rule-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.9em;
+    background-color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+}
+
+.rule-group select, .rule-group input[type="number"] {
+    padding: 3px 6px;
+    border: 1px solid #cbd5e1;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.checkbox-group {
+    grid-column: span 2;
+    background-color: #eff6ff;
+    border-color: #bfdbfe;
+}
